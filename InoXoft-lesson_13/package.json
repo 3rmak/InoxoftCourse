@@ -1,0 +1,63 @@
+{
+  "name": "inoxoft-lesson_4",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "prod": "pm2 del backend-app && pm2 start app.js --name backend-app",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/node": "^6.13.1",
+    "@sentry/tracing": "^6.13.1",
+    "aws-sdk": "^2.986.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dayjs": "^1.10.7",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "formidable": "^1.2.2",
+    "helmet": "^4.6.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.7",
+    "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.6.3",
+    "pm2": "^5.1.1",
+    "swagger-ui-express": "^4.1.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/jest": "27.0.2",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^16.7.10",
+    "@types/nodemailer": "^6.4.4",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "husky": "4.3.0",
+    "jest": "^27.2.1",
+    "lint-staged": "^11.1.2",
+    "nodemon": "^2.0.12"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint",
+      "git add"
+    ]
+  },
+  "description": ""
+}

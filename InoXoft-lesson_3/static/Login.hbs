@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+</head>
+<body>
+    {{> navbar}}
+    <div class="container text-center col-5">
+        <form class="text-start" action="/login" method="post">
+            <div class="mb-3">
+                <label for="authEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="authEmail" name="login">
+            </div>
+            <div class="mb-3">
+                <label for="authPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="authPassword" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <a class="mt-2" style="color: rgb(118, 164, 250)" href="/register">Don't have an account? Register</a>
+    </div>
+    
+</body>
+</html>

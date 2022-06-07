@@ -1,0 +1,320 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Just a little inoxcourse service",
+    "version": "0.0.1",
+    "title": "Gorbas Service",
+    "contact": {
+      "email": "r3al3rmak@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "User CRUD"
+    },
+    {
+      "name": "Department",
+      "description": "Department CRUD"
+    },
+    {
+      "name": "Token",
+      "description": "Operations with user tokens"
+    }
+  ],
+  "paths": {
+    "/api/users": {
+      "get": {
+        "tags": ["User"],
+        "description": "Get all users using query params",
+        "operationId": "getAllUsers",
+        "parameters": [
+          {
+            "name": "perPage",
+            "in": "query",
+            "type": "string",
+            "description": "Count of users contains in one page",
+            "required": false,
+            "default": 10
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string",
+            "description": "Number of page",
+            "required": false,
+            "default": 1
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "type": "string",
+            "description": "User email",
+            "required": false,
+            "default": "thomas_shelby@inox.com"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/singleUser"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "post": {
+        "tags": ["User"],
+        "description": "Post user only for manager role",
+        "operationId": "postUser",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "username",
+            "required": true,
+            "default": "Thomas"
+          },
+          {
+            "name": "surname",
+            "in": "formData",
+            "type": "string",
+            "description": "user surname",
+            "required": true,
+            "default": "Shelby"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "user email",
+            "required": true,
+            "default": "thomas_shelby@inox.com"
+          },
+          {
+            "name": "age",
+            "in": "formData",
+            "type": "integer",
+            "description": "user age",
+            "required": false,
+            "default": 18
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "description": "user open password",
+            "required": true,
+            "default": "Very123Hard"
+          },
+          {
+            "name": "role",
+            "in": "formData",
+            "type": "string",
+            "description": "user role",
+            "required": true,
+            "default": "manager"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "user avatar",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "$ref": "#/definitions/singleUser"
+            }
+          },
+          "400": {
+            "description": "Not every required fields was filled"
+          },
+          "403": {
+            "description": "Can not create user with admin or upper rights"
+          },
+          "409": {
+            "description": "Email is already used by another user"
+          },
+          "500": {
+            "description": "Can not parse formData"
+            
+          }
+        }
+      }
+    },
+    "/api/users/admin": {
+      "post": {
+        "tags": ["User"],
+        "description": "Post user only for manager role",
+        "operationId": "postUserAsAdmin",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string",
+            "description": "username",
+            "required": true,
+            "default": "Thomas"
+          },
+          {
+            "name": "surname",
+            "in": "formData",
+            "type": "string",
+            "description": "user surname",
+            "required": true,
+            "default": "Shelby"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string",
+            "description": "user email",
+            "required": true,
+            "default": "thomas_shelby@inox.com"
+          },
+          {
+            "name": "age",
+            "in": "formData",
+            "type": "integer",
+            "description": "user age",
+            "required": false,
+            "default": 18
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string",
+            "description": "user open password",
+            "required": true,
+            "default": "Very123Hard"
+          },
+          {
+            "name": "role",
+            "in": "formData",
+            "type": "string",
+            "description": "user role",
+            "required": true,
+            "default": "admin"
+          },
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "description": "user avatar",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "$ref": "#/definitions/singleUser"
+            }
+          },
+          "400": {
+            "description": "Not every required fields was filled"
+          },
+          "403": {
+            "description": "User has no rights to create admin user"
+          },
+          "409": {
+            "description": "Email is already used by another user"
+          },
+          "500": {
+            "description": "Can not parse formData"
+          }
+        },
+        "security": [
+          {
+            "userAdmin": [
+              "read:users",
+              "write:users"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "singleUser": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "description": "user ID",
+          "type": "string",
+          "example": "228"
+        },
+        "name": {
+          "description": "user name",
+          "type": "string",
+          "example": "Thomas"
+        },
+        "surname": {
+          "description": "user surname",
+          "type": "string",
+          "example": "Shelby"
+        },
+        "age": {
+          "description": "user surname",
+          "type": "integer",
+          "example": "Shelby"
+        },
+        "role": {
+          "description": "user role",
+          "type": "string",
+          "example": "manager"
+        },
+        "email": {
+          "description": "user email",
+          "type": "string",
+          "example": "thomas_shelby@inox.com"
+        },
+        "createdAt": {
+          "description": "user createdAt",
+          "type": "string",
+          "example": "2021-09-13T17:28:30.751Z"
+        },
+        "updatedAt": {
+          "description": "user updatedAt",
+          "type": "string",
+          "example": "2021-09-13T17:28:30.751Z"
+        },
+        "avatar": {
+          "type": "object",
+          "properties": {
+            "link": {
+              "description": "s3 object url",
+              "example": "https://s3.console.aws.amazon.com/s3/object/somebucket/photo.jpeg"
+            },
+            "Key": {
+              "description": "s3 key url, in case to delete from aws",
+              "example": "userPhotos/6138d93243772b99fc4b3198/gorbas-18451100-14ad-11ec-9455-3765fb243ed5.png"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "userAdmin": {
+      "type": "oauth2",
+      "authorizationUrl": "http://localhost:3000/api/users",
+      "flow": "implicit",
+      "scopes": {
+        "read:users": "find another users",
+        "write:users": "create, modify and delete another users"
+      }
+    }
+  }
+}

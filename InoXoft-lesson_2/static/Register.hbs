@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {{> header}}
+</head>
+<body>
+  {{> navbar}}
+  <div class="container text-center col-5">
+    <form class="text-start" action="/register" method="post">
+            <div class="mb-3">
+                <label for="authEmail" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="authEmail" name="email">
+            </div>
+            <div class="mb-3">
+                <label for="authPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="authPassword" name="password">
+            </div>
+            <div class="mb-3">
+                <label for="userName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="userName" name="name">
+            </div>
+            <div class="mb-3">
+                <label for="userSurname" class="form-label">Surname</label>
+                <input type="text" class="form-control" id="userSurname" name="surname">
+            </div>
+            <div class="mb-3">
+                <label for="userAge" class="form-label">Age</label>
+                <input type="text" class="form-control" id="userAge" name="age">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <a class="mt-2" style="color: rgb(255, 112, 93)" href="/register">Already have an account? Login</a>
+  </div>
+</body>
+</html>

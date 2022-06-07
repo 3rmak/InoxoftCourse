@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> header}}
+</head>
+<body>
+    {{> navbar}}
+    <div class="container text-center col-5">
+        {{#if authorized}}
+        <h2>User info</h2>
+        <div class="card">
+            <div class="card text-start">
+                <a>User info card</a>
+            </div>
+            <div class="card-body">
+                {{#with user}}
+                <h5 class="card-title">Name: {{name}}</h5>
+                <h5 class="card-title">Surname: {{surname}} </h5>
+                <h5 class="card-title">Age: {{age}} </h5>
+                <h5 class="card-title">Email: {{email}} </h5>
+                {{/with}}
+            </div>
+        </div>
+    </div>
+        {{else}}
+            <p>You are not authorized. Please login firstly</p>
+            <a href='/login' style="color:rgb(255, 112, 93)">Login here</a>
+        {{/if}}
+
+</body>
+</html>
